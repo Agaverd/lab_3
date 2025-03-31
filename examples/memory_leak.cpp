@@ -1,10 +1,17 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <iostream>
 
 int main() {
     for (int i = 0; i < 10; i++) {
         int* ptr = new int(10);
     }
+
+    _CrtDumpMemoryLeaks();
     return 0;
 }
 
-//не вызывается delete после выделения памяти
+// не вызвали delete для ptr - имеем утечку памяти
+// см. вывод/отладка
