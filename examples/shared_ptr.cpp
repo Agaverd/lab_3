@@ -1,21 +1,25 @@
 #include <iostream>
 #include <memory>
 
-struct Data {
-    int value;
-    Data(int v) : value(v) {}
+struct Rat {
+    int length;
+    Rat(int value) : length(value) {
+        std::cout << "Rat born" << std::endl;
+    }
+
+    ~Rat() {
+        std::cout << "Rat destroyed :(" << std::endl;
+    }
 };
 
 int main() {
-    std::shared_ptr<Data> ptr1 = std::make_shared<Data>(10);
-    {
-        std::shared_ptr<Data> ptr2 = ptr1;
-        std::cout << "Conuter inside: " << ptr1.use_count() << std::endl;
-    }
-    std::cout << "Conuter outside: " << ptr1.use_count() << std::endl;
+		std::shared_ptr<Rat> rat1 = std::make_shared<Rat>(10);
+        {
+			std::shared_ptr<Rat> rat2 = rat1;
+            std::cout << rat1.use_count() << " rat(s) alive" << std::endl; //Очень странный пример...
+        }
+		std::cout << rat1.use_count() << " rat(s) alive" << std::endl;
     return 0;
 }
-
-//shared_ptr указатели могут владеть одним и тем же объектом.
-//Также указатеть считает количество указателей, которые так же указывают на этот объект.
-//Так же shared_ptr удаляет объект, когда удаляется последний ptr, указывающий на него.
+//При выходе их scope уничтожается второй указатель на крыску
+//Прии выходе их main вместе с первым указателем уничтожается и сам объект
