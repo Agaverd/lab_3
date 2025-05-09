@@ -3,9 +3,9 @@
 
 int main() {
     std::shared_ptr<int> shared = std::make_shared<int>(10);
-    std::weak_ptr<int> weak = shared; //создаём "наблюдателя"
+    std::weak_ptr<int> weak = shared; //creating a "watcher"
 
-    //lock(), если указатель !expired возвращает сам объект
+    //lock(), if pointer !expired returns object itself
     if (auto temp = weak.lock()) {
         std::cout << "Object: " << *temp << std::endl;
     }
