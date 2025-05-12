@@ -12,8 +12,24 @@ Object dump complete.
 
 
 ### std::unique_ptr
+###### Просто пример
 Второй пример показывает, как можно избежать утечек памяти при помощи `std::unique_ptr`. В этом случае память освобождается автоматически, когда объект выходит из области видимости. 
+
+###### Посложнее
 Реализован класс для псевдо-работы с файлом, и продемонстривано удаление его манульно и автоматически.
+```private:
+    struct FileCloser {
+        void operator()(FILE* file_ptr) const {
+            if (file_ptr) {
+                std::fclose(file_ptr);
+            }
+        }
+    };
+```
+_private секция класса 'FileManager'_
+
+    std::unique_ptr<FILE, FileCloser> file_handle;
+    std::string filename;
 
 ### std::shared_ptr
 Реализован класс популяции мышей, через который мы можем отслеживать их количество.
